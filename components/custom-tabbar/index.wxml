@@ -1,0 +1,16 @@
+<view class="custom-tabbar" wx:if="{{visible}}">
+  <view 
+    wx:for="{{menuList}}" 
+    wx:key="type"
+    class="tabbar-item {{current === item.type ? 'active' : ''}}" 
+    bindtap="switchTab" 
+    data-url="{{item.url}}"
+    data-type="{{item.type}}"
+  >
+    <image 
+      src="{{current === item.type ? icons[item.type + 'Active'] : icons[item.type]}}" 
+      mode="aspectFit"
+    />
+    <text>{{item.text}}</text>
+  </view>
+</view>

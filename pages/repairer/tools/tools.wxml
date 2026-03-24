@@ -1,0 +1,6 @@
+<!--pages/repairer/tools/tools.wxml-->
+<text>pages/repairer/tools/tools.wxml</text>
+
+
+<!-- 自定义 TabBar -->
+<custom-tabbar role="repairer" current="tools" />

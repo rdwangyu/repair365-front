@@ -1,0 +1,8 @@
+<!-- 页面内容 -->
+<view class="page-content">
+  <!-- 维修人员首页特有的内容 -->
+  <text>维修人员首页</text>
+</view>
+
+<!-- 自定义 TabBar -->
+<custom-tabbar role="repairer" current="index" />

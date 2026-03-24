@@ -1,0 +1,30 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <!-- 顶部装饰 -->
+  <view class="top-bg"></view>
+
+  <!-- 应用名称和简介 -->
+  <view class="app-info">
+    <text class="app-name">维修助手</text>
+    <text class="app-desc">快速匹配专业维修人员</text>
+  </view>
+
+  <!-- 按钮区域 -->
+  <view class="btn-group">
+    <button class="role-btn user-btn" bindtap="selectUser">
+      <text class="btn-emoji">👤</text>
+      <text class="btn-text">我是用户</text>
+      <text class="btn-desc">发布维修需求</text>
+    </button>
+    <button class="role-btn repairer-btn" bindtap="selectRepairer">
+      <text class="btn-emoji">🔧</text>
+      <text class="btn-text">我是维修人员</text>
+      <text class="btn-desc">接单赚钱</text>
+    </button>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer">
+    <text>登录即表示同意《用户协议》和《隐私政策》</text>
+  </view>
+</view>

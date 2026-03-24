@@ -1,0 +1,5 @@
+<!--pages/repairer/order/list.wxml-->
+<text>pages/repairer/order/list.wxml</text>
+
+<!-- 自定义 TabBar -->
+<custom-tabbar role="repairer" current="order" />

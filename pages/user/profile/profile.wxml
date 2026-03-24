@@ -1,0 +1,7 @@
+<!--pages/user/profile/profile.wxml-->
+<text>pages/user/profile/profile.wxml</text>
+
+
+<!-- 自定义 TabBar -->
+<custom-tabbar role="user" current="profile" />
+
