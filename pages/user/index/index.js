@@ -99,8 +99,6 @@ Page({
           })
         }
 
-        // ===== 1. 自动填手机号 =====
-
       },
 
       fail: () => {
@@ -330,7 +328,7 @@ Page({
           this.closeForm()
 
           wx.navigateTo({
-            url: `/pages/orderDetail/orderDetail?id=${res.data.id}`
+            url: `/pages/user/order/detail/detail?order_number=${res.data.result.order_number}`
           })
 
         } else {

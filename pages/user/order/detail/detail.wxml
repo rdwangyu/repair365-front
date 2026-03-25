@@ -1,0 +1,33 @@
+<view class="container" wx:if="{{order}}">
+
+<!-- 状态 -->
+<view class="status-card">
+  <text class="status" style="color: {{statusColor}}">
+    {{statusText}}
+  </text>
+</view>
+
+<!-- 信息 -->
+<view class="card">
+  <view>📍 地址：{{order.location}}</view>
+  <view>📞 电话：{{order.contact_phone}}</view>
+  <view>🔧 类型：{{order.repair_category}}</view>
+  <view>🕒 预约：{{order.appointment_time}}</view>
+</view>
+
+<!-- 问题描述 -->
+<view class="card">
+  <view class="title">问题描述</view>
+  <view>{{order.issue_description}}</view>
+</view>
+
+<!-- 备注 -->
+<view class="card" wx:if="{{order.comment}}">
+  <view class="title">备注</view>
+  <view>{{order.comment}}</view>
+</view>
+
+</view>
+
+
+<custom-tabbar class="{{showTabbar ? '' : 'tabbar-hide'}}" role="user" current="index" />

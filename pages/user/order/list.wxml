@@ -1,5 +1,0 @@
-<!--pages/user/order/list.wxml-->
-<text>pages/user/order/list.wxml</text>
-
-<!-- 自定义 TabBar -->
-<custom-tabbar role="user" current="order" />

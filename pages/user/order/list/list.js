@@ -1,4 +1,4 @@
-// pages/user/order/list.js
+// pages/user/order/list/list.js
 Page({
 
   /**

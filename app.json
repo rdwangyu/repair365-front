@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/user/index/index",
-    "pages/user/order/list",
-    "pages/user/profile/profile",
     "pages/repairer/index/index",
     "pages/repairer/order/list",
     "pages/repairer/profile/profile",
-    "pages/repairer/tools/tools"
+    "pages/repairer/tools/tools",
+    "pages/user/index/index",
+    "pages/user/profile/profile",
+    "pages/user/order/detail/detail",
+    "pages/user/order/list/list"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffc107",
