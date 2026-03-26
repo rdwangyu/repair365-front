@@ -1,33 +1,90 @@
 <view class="container" wx:if="{{order}}">
 
-<!-- 状态 -->
-<view class="status-card">
-  <text class="status" style="color: {{statusColor}}">
-    {{statusText}}
-  </text>
+<!-- 顶部 -->
+<view class="header">
+    <view class="status">{{statusText}}</view>
+
+    <view class="order-row">
+        <text class="order-no">{{order.order_number}}</text>
+        <text class="copy" bindtap="copyOrderNo">复制</text>
+    </view>
 </view>
 
-<!-- 信息 -->
+<!-- 时间轴 -->
+<view class="timeline">
+    <view class="item" wx:for="{{timeline}}" wx:key="index">
+        <view class="dot {{item.done ? 'active' : ''}}"></view>
+
+        <view>
+            <view class="label">{{item.label}}</view>
+            <view class="time">{{item.time || '待更新'}}</view>
+        </view>
+    </view>
+</view>
+
+<!-- 基本信息 -->
 <view class="card">
-  <view>📍 地址：{{order.location}}</view>
-  <view>📞 电话：{{order.contact_phone}}</view>
-  <view>🔧 类型：{{order.repair_category}}</view>
-  <view>🕒 预约：{{order.appointment_time}}</view>
+    <view class="title">基本信息</view>
+
+    <view class="info-item">
+        <text class="icon">📱</text>
+        <text class="text">{{order.contact_phone}}</text>
+    </view>
+
+    <view class="info-item">
+        <text class="icon">📍</text>
+        <text class="text">{{order.location}}</text>
+    </view>
+
+    <view class="info-item">
+        <text class="icon">🔧</text>
+        <text class="text">{{categoryText}}</text>
+    </view>
+
+    <view class="info-item">
+        <text class="icon">🕒</text>
+        <text class="text">{{order.appointment_time}}</text>
+    </view>
 </view>
 
-<!-- 问题描述 -->
+<!-- 描述 -->
 <view class="card">
-  <view class="title">问题描述</view>
-  <view>{{order.issue_description}}</view>
+    <view class="title">问题描述</view>
+    <view class="desc">{{order.issue_description}}</view>
 </view>
 
-<!-- 备注 -->
-<view class="card" wx:if="{{order.comment}}">
-  <view class="title">备注</view>
-  <view>{{order.comment}}</view>
+<!-- 维修师傅 -->
+<view class="card">
+    <view class="title">维修人员信息</view>
+
+    <view wx:if="{{order.assignee_name}}" class="master-card">
+        <view class="avatar">👷</view>
+
+        <view class="master-info">
+            <view class="name">{{order.assignee_name}}</view>
+            <view class="phone">{{order.assignee_phone}}</view>
+        </view>
+
+        <view class="call-btn" bindtap="callMaster" data-phone="{{order.assignee_phone}}">
+            📞
+        </view>
+    </view>
+
+    <view wx:else class="empty-box">
+        <text class="empty-icon">🕐</text>
+        <text class="empty-text">暂无维修师傅接单</text>
+    </view>
+</view>
+
+<!-- 悬浮刷新 -->
+<view class="fab" bindtap="refresh">↻</view>
+
+<!-- 底部 -->
+<view class="footer">
+    <button class="home" bindtap="goHome">首页</button>
+    <button class="cancel" wx:if="{{order.order_status < 30}}" bindtap="cancelOrder">
+        取消
+    </button>
 </view>
 
 </view>
-
-
-<custom-tabbar class="{{showTabbar ? '' : 'tabbar-hide'}}" role="user" current="index" />

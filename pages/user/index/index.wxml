@@ -1,113 +1,113 @@
 <view class="container">
 
-  <!-- 顶部 -->
-  <view class="header">
-    <view class="title">维修服务</view>
-    <view class="user">张三</view>
-  </view>
-
-  <!-- 一键报修 -->
-  <view class="repair-card" bindtap="onRepair">
-    <view class="repair-icon">🔧</view>
-    <view class="repair-text">一键报修</view>
-  </view>
-
-  <!-- 功能区 -->
-  <view class="grid">
-    <view class="grid-item" bindtap="onCurrent">
-      <text class="icon">🛠️</text>
-      <text>处理中</text>
+    <!-- 顶部 -->
+    <view class="header">
+        <view class="title">维修服务</view>
+        <view class="user">张三</view>
     </view>
 
-    <view class="grid-item" bindtap="onCall">
-      <text class="icon">📞</text>
-      <text>紧急电话</text>
+    <!-- 一键报修 -->
+    <view class="repair-card" bindtap="onRepair">
+        <view class="repair-icon">🔧</view>
+        <view class="repair-text">一键报修</view>
     </view>
-  </view>
 
-  <!-- 弹窗 -->
-  <view class="popup" wx:if="{{showForm}}">
-    <view class="mask" bindtap="closeForm"></view>
-
-    <view class="drawer">
-
-      <!-- 表单滚动区 -->
-      <scroll-view scroll-y="true" class="drawer-body">
-
-        <view class="popup-title">提交报修</view>
-
-        <view class="form-item">
-          <text class="label">地址 *</text>
-
-          <!-- 第一层：固定 -->
-          <view class="city-fixed active">烟台市</view>
-
-          <!-- 第二层：区县选择 -->
-          <view class="options">
-            <view wx:for="{{districts}}" wx:key="index" class="option {{selectedDistrict==item?'active':''}}" bindtap="selectDistrict" data-value="{{item}}" value="{{selectedDistrict}}">
-              {{item}}
-            </view>
-          </view>
-
-          <!-- 第三层：详细地址 -->
-          <input placeholder="请输入详细地址" value="{{detailAddress}}" bindinput="onDetailAddr" />
+    <!-- 功能区 -->
+    <view class="grid">
+        <view class="grid-item" bindtap="onCurrent">
+            <text class="icon">🛠️</text>
+            <text>处理中</text>
         </view>
 
-        <view class="form-item">
-          <text class="label">维修类型 *</text>
-          <view class="options">
-            <view wx:for="{{categories}}" wx:key="index" class="option {{selectedCategory==item.value?'active':''}}" bindtap="selectCategory" data-value="{{item.value}}">
-
-              {{item.label}}
-
-            </view>
-          </view>
+        <view class="grid-item" bindtap="onCall">
+            <text class="icon">📞</text>
+            <text>紧急电话</text>
         </view>
-
-        <view class="form-item">
-          <text class="label">联系电话 *</text>
-          <input placeholder="请输入手机号" value="{{form.contact_phone}}" bindinput="onPhone" />
-        </view>
-
-        <view class="form-item">
-          <text class="label">问题描述 *</text>
-          <textarea placeholder="请描述问题..." bindinput="onDesc" />
-        </view>
-
-        <view class="form-item">
-          <text class="label">预约时间（选填）</text>
-
-          <view class="options two-row">
-            <view wx:for="{{days}}" wx:key="index" class="option {{selectedDay==item?'active':''}}" bindtap="selectDay" data-value="{{item}}">
-              {{item}}
-            </view>
-          </view>
-
-          <view class="options two-row">
-            <view wx:for="{{times}}" wx:key="index" class="option {{selectedTime==item.value?'active':''}}" bindtap="selectTime" data-value="{{item.value}}">
-              {{item.label}}
-            </view>
-          </view>
-        </view>
-
-        <view class="form-item">
-          <text class="label">备注</text>
-          <input placeholder="可填写备注信息" bindinput="onComment" />
-        </view>
-
-        <!-- 占位，避免被按钮挡住 -->
-        <view style="height:120rpx;"></view>
-
-      </scroll-view>
-
-      <!-- 固定按钮 -->
-      <view class="fixed-btn">
-        <button class="cancel" bindtap="closeForm">取消</button>
-        <button class="submit" bindtap="submitForm">提交</button>
-      </view>
-
     </view>
-  </view>
+
+    <!-- 弹窗 -->
+    <view class="popup" wx:if="{{showForm}}">
+        <view class="mask" bindtap="closeForm"></view>
+
+        <view class="drawer">
+
+            <!-- 表单滚动区 -->
+            <scroll-view scroll-y="true" class="drawer-body">
+
+                <view class="popup-title">提交报修</view>
+
+                <view class="form-item">
+                    <text class="label">地址 *</text>
+
+                    <!-- 第一层：固定 -->
+                    <view class="city-fixed active">烟台市</view>
+
+                    <!-- 第二层：区县选择 -->
+                    <view class="options">
+                        <view wx:for="{{districts}}" wx:key="index" class="option {{selectedDistrict==item?'active':''}}" bindtap="selectDistrict" data-value="{{item}}" value="{{selectedDistrict}}">
+                            {{item}}
+                        </view>
+                    </view>
+
+                    <!-- 第三层：详细地址 -->
+                    <input placeholder="请输入详细地址" value="{{detailAddress}}" bindinput="onDetailAddr" />
+                </view>
+
+                <view class="form-item">
+                    <text class="label">维修类型 *</text>
+                    <view class="options">
+                        <view wx:for="{{categories}}" wx:key="index" class="option {{selectedCategory==item.value?'active':''}}" bindtap="selectCategory" data-value="{{item.value}}">
+
+                            {{item.label}}
+
+                        </view>
+                    </view>
+                </view>
+
+                <view class="form-item">
+                    <text class="label">联系电话 *</text>
+                    <input placeholder="请输入手机号" bindinput="onPhone" value="{{phone}}" />
+                </view>
+
+                <view class="form-item">
+                    <text class="label">问题描述 *</text>
+                    <textarea placeholder="请描述问题..." value="{{desc}}" bindinput="onDesc" />
+                </view>
+
+                <view class="form-item">
+                    <text class="label">预约时间（选填）</text>
+
+                    <view class="options two-row">
+                        <view wx:for="{{days}}" wx:key="index" class="option {{selectedDay==item?'active':''}}" bindtap="selectDay" data-value="{{item}}" value="{{selectedDay}}">
+                            {{item}}
+                        </view>
+                    </view>
+
+                    <view class="options two-row">
+                        <view wx:for="{{times}}" wx:key="index" class="option {{selectedTime==item.value?'active':''}}" bindtap="selectTime" data-value="{{item.value}}" value="{{selectedTime}}">
+                            {{item.label}}
+                        </view>
+                    </view>
+                </view>
+
+                <view class="form-item">
+                    <text class="label">备注</text>
+                    <input placeholder="可填写备注信息" value="{{comment}}" bindinput="onComment" />
+                </view>
+
+                <!-- 占位，避免被按钮挡住 -->
+                <view style="height:120rpx;"></view>
+
+            </scroll-view>
+
+            <!-- 固定按钮 -->
+            <view class="fixed-btn">
+                <button class="cancel" bindtap="closeForm">取消</button>
+                <button class="submit" bindtap="submitForm">提交</button>
+            </view>
+
+        </view>
+    </view>
 
 </view>
 

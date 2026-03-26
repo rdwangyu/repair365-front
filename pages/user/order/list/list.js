@@ -1,66 +1,126 @@
-// pages/user/order/list/list.js
+import { BASE_URL, formatDateTime } from '../../../../utils/api'
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
+    data: {
+        list: [],
+        page: 1,
+        pageSize: 10,
+        hasMore: true,
+        loading: false,
 
-  },
+        keyword: '',
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
+        statusOptions: [
+            { label: '发布中', value: 20 },
+            { label: '已接单', value: 30 },
+            { label: '上门中', value: 31 },
+            { label: '已完成', value: 50 },
+            { label: '已取消', value: 1 }
+        ],
+        statusIndex: null
+    },
 
-  },
+    onLoad() {
+        this.loadList()
+    },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
+    // 下拉刷新
+    onPullDownRefresh() {
+        this.resetAndLoad(() => wx.stopPullDownRefresh())
+    },
 
-  },
+    // 上拉加载
+    onReachBottom() {
+        if (this.data.hasMore && !this.data.loading) {
+            this.setData({ page: this.data.page + 1 })
+            this.loadList()
+        }
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
+    resetAndLoad(cb) {
+        this.setData({
+            page: 1,
+            list: [],
+            hasMore: true
+        })
+        this.loadList(cb)
+    },
 
-  },
+    // 请求
+    loadList(cb) {
+        if (this.data.loading) return
+        this.setData({ loading: true })
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
+        const params = {
+            page: this.data.page,
+            page_size: this.data.pageSize
+        }
 
-  },
+        // 🔥 只在有值时传
+        if (this.data.keyword) params.search_keyword = this.data.keyword
+        if (this.data.statusIndex) params.status = this.data.statusIndex
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
+        wx.request({
+            url: BASE_URL + 'customer/order/',
+            method: 'GET',
+            header: {
+                Authorization: `Bearer ${wx.getStorageSync('userToken')}`
+            },
+            data: params,
 
-  },
+            success: (res) => {
+                if (res.data.errcode === 0) {
+                    const arr = res.data.result.orders || []
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
+                    const list = arr.map(item => ({
+                        ...item,
+                        create_time: formatDateTime(new Date(item.create_time)),
+                        shortDesc: (item.issue_description || '').slice(0, 20),
+                        categoryText: item.repair_category === 0 ? '电动车维修' : '其他',
+                        statusText: this.getStatusText(item.order_status)
+                    }))
 
-  },
+                    this.setData({
+                        list: this.data.page === 1 ? list : this.data.list.concat(list),
+                        hasMore: list.length === this.data.pageSize
+                    })
+                }
+            },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
+            complete: () => {
+                this.setData({ loading: false })
+                cb && cb()
+            }
+        })
+    },
 
-  },
+    // ✅ 用配置匹配状态
+    getStatusText(val) {
+        const found = this.data.statusOptions.find(i => i.value === val)
+        return found ? found.label : '处理中'
+    },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
+    // 🔍 搜索
+    onKeyword(e) {
+        this.setData({ keyword: e.detail.value })
+        this.resetAndLoad()
+    },
 
-  }
+    // 📊 状态点击（可取消）
+    toggleStatus(e) {
+        const v = e.currentTarget.dataset.value
+        this.setData({
+            statusIndex: this.data.statusIndex === v ? null : v
+        })
+        this.resetAndLoad()
+    },
+
+    goDetail(e) {
+        const id = e.currentTarget.dataset.id
+        wx.navigateTo({
+            url: `/pages/user/order/detail/detail?id=${id}`
+        })
+    }
+
 })

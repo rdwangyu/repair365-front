@@ -1,7 +1,100 @@
-<!--pages/user/profile/profile.wxml-->
-<text>pages/user/profile/profile.wxml</text>
+<view class="container">
 
+<!-- 👤 头部 -->
+<view class="header">
+    <view class="avatar">👤</view>
 
-<!-- 自定义 TabBar -->
+    <view class="info">
+        <view class="name">{{user.nickname || '未填写昵称'}}</view>
+        <view class="sub">{{user.phone || '未绑定手机号'}}</view>
+
+        <view class="status {{user.account_status === 0 ? 'ok' : 'bad'}}">
+            {{statusText}}
+        </view>
+    </view>
+</view>
+
+<!-- 📄 基本信息 -->
+<view class="card">
+
+    <view class="card-title">基本信息</view>
+
+    <!-- 昵称（可编辑） -->
+    <view class="item editable">
+        <text class="label">昵称</text>
+        <view class="edit-box">
+            <input class="input"
+                   value="{{user.nickname}}"
+                   placeholder="请输入昵称"
+                   data-field="nickname"
+                   bindblur="onBlur" />
+            <text class="edit-icon">✏️</text>
+        </view>
+    </view>
+
+    <!-- 电话（可编辑） -->
+    <view class="item editable">
+        <text class="label">电话</text>
+        <view class="edit-box">
+            <input class="input"
+                   type="number"
+                   value="{{user.phone}}"
+                   placeholder="请输入手机号"
+                   data-field="phone"
+                   bindblur="onBlur" />
+            <text class="edit-icon">✏️</text>
+        </view>
+    </view>
+
+    <!-- 性别（可编辑） -->
+    <view class="item editable">
+        <text class="label">性别</text>
+        <picker mode="selector"
+                range="{{sexOptions}}"
+                range-key="label"
+                value="{{sexIndex}}"
+                bindchange="onSexChange">
+
+            <view class="edit-box">
+                <text class="picker-text">{{sexText}}</text>
+                <text class="edit-icon">▼</text>
+            </view>
+
+        </picker>
+    </view>
+
+    <!-- 年龄（可编辑） -->
+    <view class="item editable">
+        <text class="label">年龄</text>
+        <view class="edit-box">
+            <input class="input"
+                   type="number"
+                   value="{{user.age}}"
+                   placeholder="请输入年龄"
+                   data-field="age"
+                   bindblur="onBlur" />
+            <text class="edit-icon">✏️</text>
+        </view>
+    </view>
+
+    <!-- 状态（不可编辑） -->
+    <view class="item readonly">
+        <text class="label">账户状态</text>
+        <text class="readonly-text">{{statusText}}</text>
+    </view>
+
+</view>
+
+<!-- 📞 客服 -->
+<view class="card">
+    <view class="card-title">帮助与支持</view>
+
+    <view class="service" bindtap="callService">
+        <text>联系客服</text>
+        <text class="phone">18515070524</text>
+    </view>
+</view>
+
+</view>
+
 <custom-tabbar role="user" current="profile" />
-

@@ -1,30 +1,206 @@
 .container {
-  padding: 20rpx;
-  background: #f6f7f9;
-  min-height: 100vh;
+    padding: 30rpx;
+    padding-bottom: 140rpx;
+    background: #f7f8fa;
 }
 
-.status-card {
-  background: #fff;
-  padding: 40rpx;
-  border-radius: 20rpx;
-  text-align: center;
-  margin-bottom: 20rpx;
+/* 顶部 */
+.header {
+    margin-bottom: 30rpx;
 }
 
 .status {
-  font-size: 40rpx;
-  font-weight: bold;
+    font-size: 44rpx;
+    font-weight: bold;
+    color: #333;
 }
 
+.order-row {
+    display: flex;
+    align-items: center;
+    gap: 20rpx;
+    margin-top: 10rpx;
+}
+
+.order-no {
+    color: #999;
+    font-size: 24rpx;
+}
+
+.copy {
+    font-size: 22rpx;
+    color: #6ec1a5;
+}
+
+/* 时间轴 */
+.timeline {
+    background: #fff;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+}
+
+.item {
+    display: flex;
+    margin-bottom: 25rpx;
+}
+
+.dot {
+    width: 16rpx;
+    height: 16rpx;
+    border-radius: 50%;
+    background: #ddd;
+    margin-right: 20rpx;
+}
+
+.dot.active {
+    background: #6ec1a5;
+}
+
+.label {
+    font-size: 28rpx;
+    color: #333;
+}
+
+.time {
+    font-size: 24rpx;
+    color: #999;
+    margin-top: 6rpx;
+}
+
+/* 卡片 */
 .card {
-  background: #fff;
-  padding: 30rpx;
-  border-radius: 20rpx;
-  margin-bottom: 20rpx;
+    background: #fff;
+    padding: 25rpx;
+    border-radius: 20rpx;
+    margin-bottom: 20rpx;
 }
 
 .title {
-  font-weight: bold;
-  margin-bottom: 10rpx;
+    font-weight: bold;
+    margin-bottom: 10rpx;
+}
+
+.desc {
+    color: #444;
+}
+
+/* 信息 */
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 16rpx 0;
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.icon {
+    width: 50rpx;
+}
+
+.text {
+    flex: 1;
+    font-size: 28rpx;
+}
+
+/* 师傅卡 */
+.master-card {
+    display: flex;
+    align-items: center;
+    padding: 20rpx;
+    background: #f9fafb;
+    border-radius: 16rpx;
+}
+
+.avatar {
+    width: 80rpx;
+    height: 80rpx;
+    background: #e5e7eb;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36rpx;
+    margin-right: 20rpx;
+}
+
+.master-info {
+    flex: 1;
+}
+
+.name {
+    font-size: 30rpx;
+    font-weight: bold;
+}
+
+.phone {
+    font-size: 26rpx;
+    color: #666;
+    margin-top: 6rpx;
+}
+
+.call-btn {
+    width: 70rpx;
+    height: 70rpx;
+    background: #6ec1a5;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 空状态 */
+.empty-box {
+    text-align: center;
+    padding: 40rpx 0;
+    color: #999;
+}
+
+.empty-icon {
+    font-size: 40rpx;
+}
+
+.empty-text {
+    margin-top: 10rpx;
+}
+
+/* 悬浮 */
+.fab {
+    position: fixed;
+    right: 40rpx;
+    bottom: 180rpx;
+    width: 90rpx;
+    height: 90rpx;
+    background: #6ec1a5;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 底部 */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    gap: 20rpx;
+    padding: 20rpx;
+    background: #fff;
+}
+
+.home {
+    flex: 1;
+    background: #eee;
+}
+
+.cancel {
+    flex: 1;
+    background: #ef4444;
+    color: #fff;
 }

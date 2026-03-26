@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>派单系统</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=PingFang+SC:wght@300;400;500;600;700&display=swap');
+    
+    body {
+      font-family: 'PingFang SC', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e7ec 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .app-container {
+      width: 375px;
+      height: 812px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      background: white;
+    }
+    
+    header {
+      height: 56px;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    
+    .content-flex {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+      background: #f8f9fb;
+      padding: 16px;
+      position: relative;
+    }
+    
+    footer {
+      height: 80px;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+      padding: 0 20px;
+    }
+    
+    .map-container {
+      height: 250px;
+      background: #eeeeee;
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    
+    .order-card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px 16px;
+      margin: 20px 0 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      border: 1px solid #eee;
+    }
+    
+    .info-row {
+      display: flex;
+      margin-bottom: 12px;
+    }
+    
+    .info-label {
+      color: #777777;
+      min-width: 80px;
+      font-size: 13px;
+      font-weight: 300;
+    }
+    
+    .info-value {
+      font-weight: 500;
+      font-size: 14px;
+      color: #333333;
+      flex: 1;
+    }
+    
+    .badge {
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 11px;
+      margin-left: 8px;
+    }
+    
+    .badge-urgent {
+      background: #fff0f0;
+      color: #FF3B30;
+      border: 1px solid #ffd1d1;
+    }
+    
+    .dispatch-button {
+      background: linear-gradient(135deg, #FF9900 0%, #FF6F00 100%);
+      height: 56px;
+      border-radius: 16px;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 6px 16px rgba(255, 111, 0, 0.35);
+      transition: all 0.2s;
+      width: 100%;
+      letter-spacing: 1px;
+    }
+    
+    .dispatch-button:active {
+      transform: scale(0.98);
+      box-shadow: 0 3px 8px rgba(255, 111, 0, 0.3);
+      background: linear-gradient(135deg, #FF8A00 0%, #FF5A00 100%);
+    }
+    
+    .section-title {
+      font-weight: 600;
+      color: #333333;
+      font-size: 16px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .status-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    
+    .status-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .status-text {
+      font-size: 11px;
+      color: #777;
+      margin-top: 4px;
+    }
+    
+    .status-active {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FF9900;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- 顶部栏 -->
+    <header>
+      <span class="font-bold text-gray-800 text-xl" style="letter-spacing: 1px;">派单系统</span>
+    </header>
+    
+    <!-- 内容区 -->
+    <div class="content-flex hide-scrollbar">
+      <!-- 地图区域 -->
+      <div class="map-container">
+        <img id="1" src="https://modao.cc/ai/uploads/ai_pics/36/362240/aigp_1759974668.jpeg" alt="City map view with driver positions" class="w-full h-full object-cover" style="border-radius: 16px;">
+        <div class="absolute bottom-3 left-3 bg-white px-3 py-2 rounded-full flex items-center shadow-sm">
+          <span class="iconify" data-icon="fa-solid:location-arrow" style="color: #FF9900;"></span>
+          <span class="ml-1 text-xs font-medium">实时位置更新中</span>
+        </div>
+      </div>
+      
+      <!-- 订单信息卡片 -->
+      <div class="order-card">
+        <div class="section-title">订单信息 #2210</div>
+        
+        <div class="info-row">
+          <div class="info-label">订单状态</div>
+          <div class="info-value">待分配
+            <span class="badge badge-urgent">紧急</span>
+          </div>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-label">乘客姓名</div>
+          <div class="info-value">李女士 · <span class="text-xs text-gray-500">铂金会员</span>
+            <span class="iconify text-orange-500 ml-1" data-icon="carbon:star-filled" style="font-size: 14px;"></span>
+          </div>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-label">出发时间</div>
+          <div class="info-value">今天 14:20 (约10分钟后)</div>
+        </div>
+        
+        <div class="info-row">
+          <div class="info-label">出发地点</div>
+          <div class="info-value">北京朝阳区华贸中心B2座</div>
+        </div>
+        
+        <div class="info-row" style="margin-bottom: 0;">
+          <div class="info-label">到达地点</div>
+          <div class="info-value">首都国际机场T3航站楼</div>
+        </div>
+        
+        <div class="info-row" style="margin-bottom: 0;">
+          <div class="info-label">预估里程</div>
+          <div class="info-value">28.5公里 (约45分钟)</div>
+        </div>
+        
+        <div class="status-indicator">
+          <div class="status-item">
+            <span class="status-active"></span>
+            <div class="status-text">订单创建</div>
+          </div>
+          <div class="status-item">
+            <span style="width:8px;height:8px;border-radius:50%;background:#e0e0e0;"></span>
+            <div class="status-text">分配司机</div>
+          </div>
+          <div class="status-item">
+            <span style="width:8px;height:8px;border-radius:50%;background:#e0e0e0;"></span>
+            <div class="status-text">行程中</div>
+          </div>
+          <div class="status-item">
+            <span style="width:8px;height:8px;border-radius:50%;background:#e0e0e0;"></span>
+            <div class="status-text">已完成</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 司机列表标题 -->
+      <div class="section-title">可用司机 (3)</div>
+      
+      <!-- 司机卡片1 -->
+      <div class="order-card" style="margin: 8px 0;">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center">
+              <span class="iconify" data-icon="mdi:truck" style="color: #FF9900;"></span>
+            </div>
+            <div class="ml-3">
+              <div class="font-medium">王师傅 <span class="text-xs font-normal bg-orange-50 px-2 py-0.5 rounded ml-2 text-orange-700">金牌司机</span></div>
+              <div class="flex items-center text-xs text-gray-500 mt-1">
+                <span>京B·N6K58</span>
+                <span class="mx-2">•</span>
+                <span>丰田 凯美瑞 白色</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="text-right font-medium">1.2公里</div>
+            <div class="text-xs text-orange-600">预计4分钟到达</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 司机卡片2 -->
+      <div class="order-card" style="margin: 8px 0 20px;">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+              <span class="iconify" data-icon="mdi:truck" style="color: #6b7280;"></span>
+            </div>
+            <div class="ml-3">
+              <div class="font-medium">张师傅 <span class="text-xs font-normal bg-green-50 px-2 py-0.5 rounded ml-2 text-green-700">五星好评</span></div>
+              <div class="flex items-center text-xs text-gray-500 mt-1">
+                <span>京B·2F9T3</span>
+                <span class="mx-2">•</span>
+                <span>大众 帕萨特 黑色</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="text-right font-medium">2.8公里</div>
+            <div class="text-xs text-gray-600">预计8分钟到达</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部栏 -->
+    <footer>
+      <button class="dispatch-button">
+        <span class="iconify mr-2" data-icon="ph:car" style="font-size: 22px;"></span>
+        一键派单
+      </button>
+    </footer>
+  </div>
+
+</body></html>

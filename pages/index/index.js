@@ -1,4 +1,4 @@
-import BASE_URL from '../../utils/api'
+import {BASE_URL} from '../../utils/api'
 Page({
     data: {
         registering: false
@@ -60,7 +60,7 @@ Page({
                     registering: false
                 });
 
-                console.log('login', res)
+                console.log(res)
                 if (res.statusCode === 200) {
                     if (res.data.errcode === 0) {
                         wx.setStorageSync('userToken', res.data.result.access_token);

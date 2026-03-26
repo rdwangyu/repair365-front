@@ -24,7 +24,7 @@
 .repair-card {
     margin: 60rpx auto;
     width: 90%;
-    background: linear-gradient(135deg, #6e7975, #f3b839);
+    background: linear-gradient(135deg, #1add34, #f3b839);
     border-radius: 30rpx;
     padding: 60rpx 0;
     text-align: center;

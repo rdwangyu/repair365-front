@@ -1,66 +1,123 @@
-// pages/user/profile/profile.js
+import {
+    BASE_URL,
+    formatLocation
+} from '../../../utils/api'
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
+    data: {
+        user: {},
 
-  },
+        sexOptions: [{
+                label: '未知',
+                value: 0
+            },
+            {
+                label: '男',
+                value: 1
+            },
+            {
+                label: '女',
+                value: 2
+            }
+        ],
+        sexIndex: 0,
+        sexText: '未知',
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
+        statusText: '正常'
+    },
 
-  },
+    onLoad() {
+        this.loadUser()
+    },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
+    loadUser() {
+        wx.request({
+            url: BASE_URL + 'customer/',
+            method: 'GET',
+            header: {
+                Authorization: `Bearer ${wx.getStorageSync('userToken')}`
+            },
 
-  },
+            success: (res) => {
+                if (res.data.errcode === 0) {
+                    const u = res.data.result
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
+                    const sexObj = this.data.sexOptions.find(i => i.value === u.sex) || this.data.sexOptions[0]
 
-  },
+                    this.setData({
+                        user: {
+                            ...u,
+                            address: formatLocation(u.address)
+                        },
+                        sexIndex: this.data.sexOptions.findIndex(i => i.value === u.sex),
+                        sexText: sexObj.label,
+                        statusText: u.account_status === 0 ? '正常' : '异常'
+                    })
+                    console.log(this.data)
+                }
+            }
+        })
+    },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
+    // 失焦更新
+    onBlur(e) {
+        const field = e.currentTarget.dataset.field
+        const value = (e.detail.value || '').trim()
+        if (this.data.user[field] == value) return
+        this.updateField(field, value)
+    },
 
-  },
+    onSexChange(e) {
+        const index = e.detail.value
+        const obj = this.data.sexOptions[index]
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
+        if (this.data.user.sex === obj.value) return
 
-  },
+        this.setData({
+            sexIndex: index,
+            sexText: obj.label
+        })
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
+        this.updateField('sex', obj.value)
+    },
 
-  },
+    updateField(field, value) {
+        wx.request({
+            url: BASE_URL + 'customer/',
+            method: 'PUT',
+            header: {
+                Authorization: `Bearer ${wx.getStorageSync('userToken')}`
+            },
+            data: {
+                [field]: value
+            },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
+            success: (res) => {
+                if (res.data.errcode === 0) {
+                    this.setData({
+                        [`user.${field}`]: value
+                    })
 
-  },
+                    wx.showToast({
+                        title: '已更新',
+                        icon: 'success'
+                    })
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
+                } else {
+                    wx.showToast({
+                        title: '更新失败',
+                        icon: 'none'
+                    })
+                }
+            }
+        })
+    },
 
-  }
+    callService() {
+        wx.makePhoneCall({
+            phoneNumber: '18515070524'
+        })
+    }
+
 })

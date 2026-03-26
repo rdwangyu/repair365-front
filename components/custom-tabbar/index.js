@@ -40,7 +40,7 @@ Component({
         if (role === 'user') {
           menuList = [
             { type: 'index', text: '首页', url: `/pages/user/index/index` },
-            { type: 'order', text: '订单列表', url: `/pages/user/order/list` },
+            { type: 'order', text: '订单列表', url: `/pages/user/order/list/list` },
             { type: 'profile', text: '用户中心', url: `/pages/user/profile/profile` }
           ];
         } else if (role === 'repairer') {

@@ -1,1 +1,137 @@
-/* pages/user/profile/profile.wxss */
+.container {
+    background: #fffbe6;
+    min-height: 100vh;
+    padding: 20rpx;
+    padding-bottom: 140rpx;
+}
+
+/* 👤 头部 */
+.header {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #fde68a, #fcd34d);
+    padding: 30rpx;
+    border-radius: 20rpx;
+    margin-bottom: 20rpx;
+}
+
+.avatar {
+    width: 100rpx;
+    height: 100rpx;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40rpx;
+    margin-right: 20rpx;
+}
+
+.name {
+    font-size: 34rpx;
+    font-weight: bold;
+}
+
+.sub {
+    font-size: 24rpx;
+    color: #666;
+    margin-top: 6rpx;
+}
+
+.status {
+    margin-top: 10rpx;
+    display: inline-block;
+    padding: 6rpx 16rpx;
+    border-radius: 999rpx;
+    font-size: 22rpx;
+}
+
+.status.ok {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status.bad {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* 卡片 */
+.card {
+    background: #fff;
+    border-radius: 20rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+}
+
+.card-title {
+    font-size: 28rpx;
+    font-weight: bold;
+    margin-bottom: 20rpx;
+}
+
+/* 行 */
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 0;
+    border-bottom: 1rpx solid #f2f2f2;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.label {
+    color: #666;
+}
+
+/* 👇 可编辑（重点样式） */
+.editable .edit-box {
+    display: flex;
+    align-items: center;
+    background: #fff8dc;
+    border: 2rpx solid #fde68a;
+    border-radius: 12rpx;
+    padding: 10rpx 16rpx;
+    min-width: 260rpx;
+}
+
+.input {
+    text-align: right;
+    flex: 1;
+    color: #333;
+}
+
+.edit-icon {
+    margin-left: 10rpx;
+    font-size: 24rpx;
+    color: #eab308;
+}
+
+/* picker */
+.picker-text {
+    flex: 1;
+    text-align: right;
+}
+
+/* 👇 只读 */
+.readonly-text {
+    color: #999;
+}
+
+/* 客服 */
+.service {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx;
+    background: #fef3c7;
+    border-radius: 16rpx;
+}
+
+.phone {
+    color: #d97706;
+    font-weight: bold;
+}

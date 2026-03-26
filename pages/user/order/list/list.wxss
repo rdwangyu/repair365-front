@@ -1,1 +1,100 @@
-/* pages/user/order/list/list.wxss */
+.container {
+    background: #fffbe6;
+    min-height: 100vh;
+    padding: 20rpx;
+    padding-bottom: 160rpx; /* ✅ 防tabbar遮挡 */
+}
+
+/* 搜索 */
+.search {
+    background: #fff;
+    padding: 20rpx;
+    border-radius: 16rpx;
+    margin-bottom: 20rpx;
+}
+
+/* 分组 */
+.section {
+    margin-bottom: 20rpx;
+}
+
+.section-title {
+    font-size: 26rpx;
+    color: #888;
+    margin-bottom: 10rpx;
+}
+
+/* 标签 */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16rpx;
+}
+
+.tag {
+    padding: 12rpx 24rpx;
+    background: #fff;
+    border-radius: 999rpx;
+    font-size: 24rpx;
+    color: #666;
+}
+
+.tag.active {
+    background: #fde68a;
+    color: #92400e;
+}
+
+/* 卡片 */
+.card {
+    background: #fff;
+    border-radius: 20rpx;
+    padding: 24rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 6rpx 16rpx rgba(0,0,0,0.05);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-no {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.status {
+    font-size: 24rpx;
+    color: #f59e0b;
+    font-weight: bold;
+}
+
+.card-type {
+    margin-top: 10rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-desc {
+    margin-top: 10rpx;
+    color: #666;
+    font-size: 26rpx;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-bottom {
+    margin-top: 10rpx;
+    font-size: 22rpx;
+    color: #aaa;
+}
+
+/* 空状态 */
+.empty {
+    text-align: center;
+    color: #aaa;
+    margin-top: 120rpx;
+}
