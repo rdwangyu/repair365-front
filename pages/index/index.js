@@ -96,7 +96,8 @@ Page({
 
     selectRepairer() {
         wx.reLaunch({
-            url: '/pages/repairer/index/index'
+            // url: '/pages/repairer/index/index'
+            url: '/pages/repairer/profile/register/register'
         });
     },
 
