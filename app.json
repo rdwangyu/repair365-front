@@ -1,14 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/user/index/index",
+    "pages/user/order/detail/detail",
+    "pages/user/order/list/list",
+    "pages/user/profile/profile",
     "pages/repairer/index/index",
     "pages/repairer/order/list",
-    "pages/repairer/profile/profile",
-    "pages/repairer/tools/tools",
-    "pages/user/index/index",
-    "pages/user/profile/profile",
-    "pages/user/order/detail/detail",
-    "pages/user/order/list/list"
+    "pages/repairer/profile/profile/profile",
+    "pages/repairer/profile/register/register",
+    "pages/repairer/tools/tools"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffc107",

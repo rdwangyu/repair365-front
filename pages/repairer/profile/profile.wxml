@@ -1,6 +1,0 @@
-<!--pages/repairer/profile/profile.wxml-->
-<text>pages/repairer/profile/profile.wxml</text>
-
-
-<!-- 自定义 TabBar -->
-<custom-tabbar role="repairer" current="profile" />
