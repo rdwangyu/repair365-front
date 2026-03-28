@@ -50,8 +50,7 @@ Page({
                         order_status: r.order_status,
                         create_time: formatDateTime(new Date(r.create_time)),
 
-                        // 测试数据（上线删掉）
-                        assignee_name: '王师傅',
+                        assignee_name: '王师傅（测试数据）',
                         assignee_phone: '1851506024'
                     }
 

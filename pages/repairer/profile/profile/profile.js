@@ -1,9 +1,7 @@
-// pages/masterDetail/masterDetail.js
+import { BASE_URL } from '../../../../utils/api'
 
-const API_BASE = 'http://192.168.10.118:8000'
 const CONTACT_PHONE = '18515070524'
 
-// 账号状态映射
 const STATUS_MAP = {
   0: '新建',
   1: '审核中',
@@ -18,24 +16,53 @@ Page({
     errorMsg: '',
     userInfo: null,
     stars: '',
-    statusMap: STATUS_MAP
+    statusMap: STATUS_MAP,
+    showTabbar: true,
+    tabbarHeight: 50,   // 动态测量，默认 50px
+    bottomPadding: 160  // page-wrap 底部留白，动态计算
   },
 
-  onLoad(options) {
-    // 如需从上个页面接收参数（如 masterId），可从 options 中获取
-    // this.masterId = options.id
+  onLoad() {
+    this._measureTabbar()
     this.loadData()
   },
 
-  // ── 请求用户信息 ──
+  // ── 动态获取 tabbar 高度，防止内容被遮住 ──
+  _measureTabbar() {
+    const sys = wx.getSystemInfoSync()
+    const safeBottom = sys.screenHeight - (sys.safeArea ? sys.safeArea.bottom : sys.screenHeight)
+    const defaultH = 50
+    this._applyHeights(defaultH, safeBottom)
+
+    // 等组件渲染后精确测量
+    setTimeout(() => {
+      wx.createSelectorQuery()
+        .select('custom-tabbar')
+        .boundingClientRect(rect => {
+          if (rect && rect.height > 0) {
+            this._applyHeights(rect.height, safeBottom)
+          }
+        })
+        .exec()
+    }, 300)
+  },
+
+  _applyHeights(tabbarH, safeBottom) {
+    // 按钮条高度 ≈ 80rpx按钮 + 28rpx上下padding + 安全区 换算成 px
+    const btnBarPx = Math.ceil((80 + 28) / 2) + safeBottom
+    this.setData({
+      tabbarHeight: tabbarH,
+      bottomPadding: tabbarH + btnBarPx + 12
+    })
+  },
+
+  // ── 拉取用户信息 ──
   loadData() {
     this.setData({ loading: true, error: false })
-
-    // 从本地缓存获取 userToken（登录时存储）
     const userToken = wx.getStorageSync('userToken') || ''
 
     wx.request({
-      url: `${API_BASE}/master/`,
+      url: BASE_URL + 'master/',
       method: 'GET',
       header: {
         'Authorization': `Bearer ${userToken}`,
@@ -43,7 +70,7 @@ Page({
       },
       success: (res) => {
         if (res.statusCode === 200 && res.data) {
-          const info = res.data
+          const info = res.data.result
           this.setData({
             userInfo: info,
             stars: this._buildStars(info.user_grade),
@@ -51,59 +78,39 @@ Page({
             error: false
           })
         } else if (res.statusCode === 401) {
-          this.setData({
-            loading: false,
-            error: true,
-            errorMsg: '登录已过期，请重新登录'
-          })
+          this.setData({ loading: false, error: true, errorMsg: '登录已过期，请重新登录' })
         } else {
-          this.setData({
-            loading: false,
-            error: true,
-            errorMsg: `请求失败（${res.statusCode}）`
-          })
+          this.setData({ loading: false, error: true, errorMsg: `请求失败（${res.statusCode}）` })
         }
       },
       fail: (err) => {
         console.error('请求失败', err)
-        this.setData({
-          loading: false,
-          error: true,
-          errorMsg: '网络异常，请检查连接后重试'
-        })
+        this.setData({ loading: false, error: true, errorMsg: '网络异常，请检查连接后重试' })
       }
     })
   },
 
-  // ── 生成星星字符串 ──
+  // ── 生成星星字符串（5星制）──
   _buildStars(grade) {
-    const g = parseFloat(grade) || 0
+    const g = Math.min(parseFloat(grade) || 0, 5)
     const full = Math.floor(g)
     const half = g - full >= 0.5
-    let s = '★'.repeat(Math.min(full, 5))
-    if (half && full < 5) s += '½'
-    const empty = 5 - Math.ceil(g)
-    s += '☆'.repeat(Math.max(0, empty))
-    return s
+    const emptyCount = 5 - full - (half ? 1 : 0)
+    return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(Math.max(0, emptyCount))
   },
 
-  // ── 预览营业执照 ──
+  // ── 营业执照放大预览（修正：从 userInfo 取数据）──
   previewLicense() {
     const url = this.data.userInfo && this.data.userInfo.business_license
     if (!url) return
-    wx.previewImage({
-      urls: [url],
-      current: url
-    })
+    wx.previewImage({ urls: [url], current: url })
   },
 
   // ── 拨打客服电话 ──
   callService() {
     wx.makePhoneCall({
       phoneNumber: CONTACT_PHONE,
-      fail() {
-        // 部分环境（开发工具）不支持拨号，忽略
-      }
+      fail() {} // 开发工具不支持，静默忽略
     })
   }
 })

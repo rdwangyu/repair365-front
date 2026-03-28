@@ -44,8 +44,8 @@ Component({
         } else if (role === 'repairer') {
           menuList = [
             { type: 'index', text: '首页', url: `/pages/repairer/index/index` },
-            { type: 'order', text: '订单列表', url: `/pages/repairer/order/list` },
-            { type: 'profile', text: '用户中心', url: `/pages/repairer/profile/profile` }
+            { type: 'order', text: '订单列表', url: `/pages/repairer/order/list/list` },
+            { type: 'profile', text: '用户中心', url: `/pages/repairer/profile/profile/profile` }
           ];
         }
         this.setData({ menuList });

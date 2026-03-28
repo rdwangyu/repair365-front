@@ -1,0 +1,54 @@
+<view class="container">
+
+<!-- 🔍 搜索 -->
+<input class="search"
+       placeholder="搜索订单 / 问题"
+       bindinput="onKeyword" />
+
+<!-- 📊 状态筛选 -->
+<view class="section">
+    <view class="section-title">订单状态</view>
+    <view class="tags">
+        <view wx:for="{{statusOptions}}"
+              wx:key="value"
+              class="tag {{statusIndex === item.value ? 'active' : ''}}"
+              data-value="{{item.value}}"
+              bindtap="toggleStatus">
+            {{item.label}}
+        </view>
+    </view>
+</view>
+
+<!-- 📦 列表 -->
+<view class="list">
+
+    <view class="card"
+          wx:for="{{list}}"
+          wx:key="id"
+          bindtap="goDetail"
+          data-id="{{item.id}}">
+
+        <view class="card-top">
+            <text class="order-no">{{item.order_number}}</text>
+            <text class="status">{{item.statusText}}</text>
+        </view>
+
+        <view class="card-type">{{item.categoryText}}</view>
+
+        <view class="card-desc">{{item.shortDesc}}</view>
+
+        <view class="card-bottom">
+            {{item.create_time}}
+        </view>
+
+    </view>
+
+    <view wx:if="{{!list.length}}" class="empty">
+        暂无订单
+    </view>
+
+</view>
+
+</view>
+
+<custom-tabbar class="{{showTabbar ? '' : 'tabbar-hide'}}" role="repairer" current="order" />
