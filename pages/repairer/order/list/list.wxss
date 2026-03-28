@@ -1,100 +1,213 @@
-.container {
-    background: #91caeb;
-    min-height: 100vh;
-    padding: 20rpx;
-    padding-bottom: 160rpx; /* ✅ 防tabbar遮挡 */
+.page {
+  background: #f2f4f8;
+  min-height: 100vh;
+}
+
+/* 🔵 顶部 */
+.header {
+  background: linear-gradient(135deg, #2A7BFF, #5AA7FF);
+  padding: 40rpx 20rpx 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
+
+.title {
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
 }
 
 /* 搜索 */
+.search-box {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 40rpx;
+  padding: 10rpx 20rpx;
+}
+
 .search {
-    background: #fff;
-    padding: 20rpx;
-    border-radius: 16rpx;
-    margin-bottom: 20rpx;
+  color: #fff;
+  font-size: 26rpx;
 }
 
-/* 分组 */
-.section {
-    margin-bottom: 20rpx;
+/* 状态栏 */
+.status-bar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40rpx;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #f2f4f8);
 }
 
-.section-title {
-    font-size: 26rpx;
-    color: #888;
-    margin-bottom: 10rpx;
+.status-bar {
+  padding: 20rpx;
+  white-space: nowrap;
 }
 
-/* 标签 */
+/* 容器必须横向 */
 .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16rpx;
+  display: inline-flex;
+  gap: 20rpx;
 }
 
+/* 🔥 核心：禁止换行 */
 .tag {
-    padding: 12rpx 24rpx;
-    background: #fff;
-    border-radius: 999rpx;
-    font-size: 24rpx;
-    color: #666;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10rpx 25rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #666;
+
+  white-space: nowrap;
+  /* 🔥 防止文字竖排 */
+  flex-shrink: 0;
+  /* 🔥 不允许被压缩 */
 }
 
 .tag.active {
-    background: #fde68a;
-    color: #92400e;
+  background: #2A7BFF;
+  color: #fff;
+}
+
+/* 列表 */
+.list {
+  padding: 20rpx;
 }
 
 /* 卡片 */
 .card {
-    background: #fff;
-    border-radius: 20rpx;
-    padding: 24rpx;
-    margin-bottom: 20rpx;
-    box-shadow: 0 6rpx 16rpx rgba(0,0,0,0.05);
+  display: flex;
+  background: #fff;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 25rpx rgba(0, 0, 0, 0.05);
 }
 
+/* 左侧状态条（核心） */
+.status-bar-left {
+  width: 10rpx;
+}
+
+/* 内容 */
+.card-content {
+  flex: 1;
+  padding: 25rpx;
+}
+
+/* 顶部 */
 .card-top {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .order-no {
-    font-size: 24rpx;
-    color: #999;
+  font-size: 26rpx;
+  font-weight: bold;
 }
 
-.status {
-    font-size: 24rpx;
-    color: #f59e0b;
-    font-weight: bold;
+/* 状态标签 */
+.status-tag {
+  padding: 6rpx 18rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  color: #fff;
 }
 
+/* 类型 */
 .card-type {
-    margin-top: 10rpx;
-    font-size: 30rpx;
-    font-weight: bold;
-    color: #333;
+  margin-top: 15rpx;
+  font-size: 26rpx;
+  font-weight: 500;
 }
 
+/* 描述 */
 .card-desc {
-    margin-top: 10rpx;
-    color: #666;
-    font-size: 26rpx;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #666;
 }
 
+/* 底部 */
 .card-bottom {
-    margin-top: 10rpx;
-    font-size: 22rpx;
-    color: #aaa;
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  color: #999;
+  font-size: 22rpx;
 }
 
-/* 空状态 */
+.arrow {
+  font-size: 30rpx;
+  color: #ccc;
+}
+
+/* ===== 状态颜色系统（统一详情页） ===== */
+
+/* 蓝 */
+.card.blue .status-bar-left {
+  background: #2A7BFF;
+}
+
+.status-tag.blue {
+  background: #2A7BFF;
+}
+
+/* 橙 */
+.card.orange .status-bar-left {
+  background: #FF8A00;
+}
+
+.status-tag.orange {
+  background: #FF8A00;
+}
+
+/* 紫 */
+.card.purple .status-bar-left {
+  background: #7B61FF;
+}
+
+.status-tag.purple {
+  background: #7B61FF;
+}
+
+/* 绿 */
+.card.green .status-bar-left {
+  background: #00B96B;
+}
+
+.status-tag.green {
+  background: #00B96B;
+}
+
+/* 红 */
+.card.red .status-bar-left {
+  background: #FF4D4F;
+}
+
+.status-tag.red {
+  background: #FF4D4F;
+}
+
+/* 灰 */
+.card.gray .status-bar-left {
+  background: #ccc;
+}
+
+.status-tag.gray {
+  background: #999;
+}
+
+/* 空 */
 .empty {
-    text-align: center;
-    color: #aaa;
-    margin-top: 120rpx;
+  text-align: center;
+  margin-top: 200rpx;
+  color: #999;
 }

@@ -1,51 +1,75 @@
-<view class="container">
+<view class="page">
 
-<!-- 🔍 搜索 -->
-<input class="search"
-       placeholder="搜索订单 / 问题"
-       bindinput="onKeyword" />
+<!-- 🔵 顶部（统一详情页风格） -->
+<view class="header">
+  <view class="title">订单列表</view>
 
-<!-- 📊 状态筛选 -->
-<view class="section">
-    <view class="section-title">订单状态</view>
-    <view class="tags">
-        <view wx:for="{{statusOptions}}"
-              wx:key="value"
-              class="tag {{statusIndex === item.value ? 'active' : ''}}"
-              data-value="{{item.value}}"
-              bindtap="toggleStatus">
-            {{item.label}}
-        </view>
-    </view>
+  <view class="search-box">
+    <input class="search"
+           placeholder="搜索订单 / 问题"
+           bindinput="onKeyword" />
+  </view>
 </view>
+
+<!-- 状态筛选 -->
+<scroll-view 
+  class="status-bar"
+  scroll-x="true"
+  enable-flex="true"
+  show-scrollbar="false"
+>
+  <view class="tags">
+    <view wx:for="{{statusOptions}}"
+          wx:key="value"
+          class="tag {{statusIndex === item.value ? 'active' : ''}}"
+          data-value="{{item.value}}"
+          bindtap="toggleStatus">
+      {{item.label}}
+    </view>
+  </view>
+</scroll-view>
 
 <!-- 📦 列表 -->
 <view class="list">
 
-    <view class="card"
-          wx:for="{{list}}"
-          wx:key="id"
-          bindtap="goDetail"
-          data-id="{{item.id}}">
+  <view class="card {{item.statusClass}}"
+        wx:for="{{list}}"
+        wx:key="id"
+        bindtap="goDetail"
+        data-id="{{item.id}}">
 
-        <view class="card-top">
-            <text class="order-no">{{item.order_number}}</text>
-            <text class="status">{{item.statusText}}</text>
+    <!-- 左侧状态条 -->
+    <view class="status-bar-left"></view>
+
+    <view class="card-content">
+
+      <!-- 顶部 -->
+      <view class="card-top">
+        <text class="order-no">#{{item.order_number}}</text>
+        <view class="status-tag {{item.statusClass}}">
+          {{item.statusText}}
         </view>
+      </view>
 
-        <view class="card-type">{{item.categoryText}}</view>
+      <!-- 类型 -->
+      <view class="card-type">{{item.categoryText}}</view>
 
-        <view class="card-desc">{{item.shortDesc}}</view>
+      <!-- 描述 -->
+      <view class="card-desc">{{item.shortDesc}}</view>
 
-        <view class="card-bottom">
-            {{item.create_time}}
-        </view>
+      <!-- 底部 -->
+      <view class="card-bottom">
+        <text>{{item.create_time}}</text>
+        <text class="arrow">›</text>
+      </view>
 
     </view>
 
-    <view wx:if="{{!list.length}}" class="empty">
-        暂无订单
-    </view>
+  </view>
+
+  <view wx:if="{{!list.length}}" class="empty">
+    暂无订单
+  </view>
 
 </view>
 
