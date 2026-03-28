@@ -8,8 +8,7 @@
     "pages/repairer/index/index",
     "pages/repairer/order/list",
     "pages/repairer/profile/profile/profile",
-    "pages/repairer/profile/register/register",
-    "pages/repairer/tools/tools"
+    "pages/repairer/profile/register/register"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffc107",

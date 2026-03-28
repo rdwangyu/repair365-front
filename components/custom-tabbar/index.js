@@ -22,9 +22,7 @@ Component({
         order: '/images/tabbar/order.png',
         orderActive: '/images/tabbar/order_active.png',
         profile: '/images/tabbar/profile.png',
-        profileActive: '/images/tabbar/profile_active.png',
-        tools: '/images/tabbar/tools.png',
-        toolsActive: '/images/tabbar/tools_active.png'
+        profileActive: '/images/tabbar/profile_active.png'
       }
     },
   
@@ -47,7 +45,6 @@ Component({
           menuList = [
             { type: 'index', text: '首页', url: `/pages/repairer/index/index` },
             { type: 'order', text: '订单列表', url: `/pages/repairer/order/list` },
-            { type: 'tools', text: '常用工具', url: `/pages/repairer/tools/tools` },
             { type: 'profile', text: '用户中心', url: `/pages/repairer/profile/profile` }
           ];
         }

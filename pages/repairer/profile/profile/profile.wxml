@@ -1,2 +1,165 @@
-<!--pages/repairer/profile/profile/profile.wxml-->
-<text>pages/repairer/profile/profile/profile.wxml</text>
+<!-- pages/masterDetail/masterDetail.wxml -->
+<view class="page-wrap">
+
+<!-- 加载中 -->
+<view class="state-center" wx:if="{{loading}}">
+  <view class="spinner"></view>
+  <text class="state-msg">正在加载师傅信息…</text>
+</view>
+
+<!-- 错误 -->
+<view class="state-center" wx:elif="{{error}}">
+  <image class="error-icon" src="/assets/icons/error.png" mode="aspectFit"/>
+  <text class="state-msg">{{errorMsg}}</text>
+  <view class="retry-btn" bindtap="loadData">重新加载</view>
+</view>
+
+<!-- 主内容 -->
+<block wx:elif="{{userInfo}}">
+
+  <!-- Header 渐变区 -->
+  <view class="page-header">
+    <!-- 头像 -->
+    <view class="avatar-wrap">
+      <image
+        wx:if="{{userInfo.avatar}}"
+        class="avatar"
+        src="{{userInfo.avatar}}"
+        mode="aspectFill"
+      />
+      <view wx:else class="avatar-placeholder">
+        <text class="avatar-icon">👤</text>
+      </view>
+      <view class="status-badge status-{{userInfo.account_status}}">
+        {{statusMap[userInfo.account_status]}}
+      </view>
+    </view>
+
+    <text class="user-name">{{userInfo.fullname}}</text>
+    <text class="user-phone">{{userInfo.phone}}</text>
+  </view>
+
+  <!-- 统计栏 -->
+  <view class="stats-row">
+    <view class="stat-item">
+      <text class="stat-val">{{userInfo.age}}</text>
+      <text class="stat-label">年龄</text>
+    </view>
+    <view class="stat-item stat-divider">
+      <text class="stat-val">{{userInfo.work_year}}</text>
+      <text class="stat-label">工龄（年）</text>
+    </view>
+    <view class="stat-item stat-divider">
+      <text class="stat-val gold">{{userInfo.user_grade}}</text>
+      <text class="stat-label">综合评分</text>
+    </view>
+    <view class="stat-item stat-divider">
+      <text class="stat-val">Lv.{{userInfo.level}}</text>
+      <text class="stat-label">等级</text>
+    </view>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="content-area">
+
+    <!-- 营业执照 -->
+    <view class="license-card">
+      <view class="license-header">
+        <text class="license-title">📄 营业执照</text>
+        <view class="license-badge-wrap">
+          <text class="license-badge">官方认证</text>
+        </view>
+      </view>
+      <view class="license-body" bindtap="previewLicense">
+        <image
+          wx:if="{{userInfo.business_license}}"
+          class="license-img"
+          src="{{userInfo.business_license}}"
+          mode="widthFix"
+        />
+        <view wx:else class="license-placeholder">
+          <text class="license-ph-icon">📋</text>
+          <text class="license-ph-text">暂无营业执照</text>
+        </view>
+        <view class="zoom-hint" wx:if="{{userInfo.business_license}}">
+          <text class="zoom-text">🔍 点击放大查看</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="card">
+      <view class="card-header">
+        <view class="card-header-bar"></view>
+        <text class="card-title">基本信息</text>
+      </view>
+      <view class="field-row">
+        <text class="field-label">姓名</text>
+        <text class="field-value bold">{{userInfo.fullname || '—'}}</text>
+      </view>
+      <view class="field-row">
+        <text class="field-label">性别</text>
+        <view class="gender-tag {{userInfo.sex === 1 ? 'gender-male' : 'gender-female'}}">
+          <text>{{userInfo.sex === 1 ? '♂ 男' : '♀ 女'}}</text>
+        </view>
+      </view>
+      <view class="field-row">
+        <text class="field-label">年龄</text>
+        <text class="field-value">{{userInfo.age || '—'}} 岁</text>
+      </view>
+      <view class="field-row">
+        <text class="field-label">联系电话</text>
+        <text class="field-value bold">{{userInfo.phone || '—'}}</text>
+      </view>
+      <view class="field-row field-row-last">
+        <text class="field-label">地址</text>
+        <text class="field-value address-val">{{userInfo.address || '—'}}</text>
+      </view>
+    </view>
+
+    <!-- 职业信息 -->
+    <view class="card">
+      <view class="card-header">
+        <view class="card-header-bar"></view>
+        <text class="card-title">职业信息</text>
+      </view>
+      <view class="field-row">
+        <text class="field-label">工作年限</text>
+        <text class="field-value">{{userInfo.work_year || '—'}} 年</text>
+      </view>
+      <view class="field-row">
+        <text class="field-label">师傅等级</text>
+        <view class="level-badge">
+          <text>⭐ Lv.{{userInfo.level || 0}}</text>
+        </view>
+      </view>
+      <view class="field-row">
+        <text class="field-label">综合评分</text>
+        <view class="grade-wrap">
+          <text class="stars">{{stars}}</text>
+          <text class="grade-num">{{userInfo.user_grade}}</text>
+        </view>
+      </view>
+      <view class="field-row field-row-last">
+        <text class="field-label">账号状态</text>
+        <view class="status-inline status-{{userInfo.account_status}}">
+          <text>{{statusMap[userInfo.account_status]}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部占位 -->
+    <view style="height: 100rpx;"></view>
+  </view>
+
+</block>
+
+<!-- 底部联系客服按钮 -->
+<view class="bottom-bar" wx:if="{{!loading && !error}}">
+  <button class="btn-contact" bindtap="callService">
+    <text class="btn-icon">📞</text>
+    <text class="btn-text">联系客服</text>
+  </button>
+</view>
+
+</view>
