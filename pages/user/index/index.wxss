@@ -1,191 +1,426 @@
+/* ===== 全局变量 ===== */
+page {
+  --primary: #F5C842;
+  --primary-deep: #E6B020;
+  --primary-light: #FEF7DC;
+  --primary-ultra-light: #FFFDF0;
+  --text-main: #1A1A1A;
+  --text-sub: #666666;
+  --text-hint: #AAAAAA;
+  --white: #FFFFFF;
+  --bg: #F9F6EE;
+  --border: #EDE8D8;
+  --shadow-color: rgba(200, 170, 60, 0.18);
+  --radius-lg: 32rpx;
+  --radius-md: 20rpx;
+  --radius-sm: 12rpx;
+}
+
+/* ===== 基础 ===== */
 .container {
-    padding: 20rpx;
-    background: #f7faf9;
-    min-height: 100vh;
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 0 0 120rpx 0;
 }
 
-/* 顶部 */
+/* ===== 顶部 Header ===== */
 .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60rpx 40rpx 30rpx;
 }
 
-.title {
-    font-size: 36rpx;
-    font-weight: bold;
+.header-greeting {
+  font-size: 24rpx;
+  color: var(--text-hint);
+  margin-bottom: 4rpx;
 }
 
-.user {
-    color: #999;
+.header-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -1rpx;
 }
 
-/* 一键报修（卡片风） */
-.repair-card {
-    margin: 60rpx auto;
-    width: 90%;
-    background: linear-gradient(135deg, #1add34, #f3b839);
-    border-radius: 30rpx;
-    padding: 60rpx 0;
-    text-align: center;
-    color: #fff;
-    box-shadow: 0 15rpx 30rpx rgba(0, 0, 0, 0.08);
+.header-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6rpx 20rpx var(--shadow-color);
+}
+
+.avatar-text {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--white);
+}
+
+/* ===== 地图卡片 ===== */
+.map-card {
+  margin: 10rpx 32rpx 32rpx;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 12rpx 36rpx rgba(0, 0, 0, 0.1);
+  height: 360rpx;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 24rpx;
+  background: linear-gradient(transparent, rgba(0,0,0,0.35));
+}
+
+.map-tag {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-main);
+  font-size: 22rpx;
+  font-weight: 500;
+  padding: 10rpx 20rpx;
+  border-radius: 100rpx;
+  backdrop-filter: blur(6px);
+}
+
+/* ===== 操作区 ===== */
+.actions {
+  padding: 0 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+/* ===== 一键报修 主按钮 ===== */
+.repair-btn {
+  width: 100%;
+  background: var(--primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16rpx 40rpx var(--shadow-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.repair-btn::before {
+  content: '';
+  position: absolute;
+  top: -40rpx;
+  right: -40rpx;
+  width: 180rpx;
+  height: 180rpx;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+}
+
+.repair-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -60rpx;
+  left: 40rpx;
+  width: 240rpx;
+  height: 240rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.repair-btn-inner {
+  display: flex;
+  align-items: center;
+  padding: 36rpx 40rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.repair-icon-wrap {
+  width: 96rpx;
+  height: 96rpx;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 28rpx;
+  flex-shrink: 0;
 }
 
 .repair-icon {
-    font-size: 60rpx;
+  font-size: 46rpx;
 }
 
-.repair-text {
-    font-size: 42rpx;
-    margin-top: 10rpx;
+.repair-btn-text {
+  flex: 1;
 }
 
-/* 功能区 */
-.grid {
-    display: flex;
-    justify-content: space-around;
+.repair-main-text {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1A1200;
+  line-height: 1.2;
+  letter-spacing: -0.5rpx;
 }
 
-.grid-item {
-    width: 42%;
-    background: #fff;
-    padding: 40rpx 0;
-    border-radius: 25rpx;
-    text-align: center;
-    box-shadow: 0 10rpx 20rpx rgba(0, 0, 0, 0.05);
+.repair-sub-text {
+  font-size: 22rpx;
+  color: rgba(26, 18, 0, 0.55);
+  margin-top: 6rpx;
 }
 
-.icon {
-    font-size: 50rpx;
-    display: block;
-    margin-bottom: 10rpx;
+.repair-arrow {
+  font-size: 52rpx;
+  color: rgba(26, 18, 0, 0.3);
+  font-weight: 300;
+  line-height: 1;
 }
 
-/* 弹窗 */
+/* ===== 次级按钮：处理中 ===== */
+.secondary-btn {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 28rpx 36rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.06);
+  border: 1.5rpx solid var(--border);
+}
+
+.secondary-icon {
+  font-size: 38rpx;
+}
+
+.secondary-text {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+/* ===== 弹窗 ===== */
 .popup {
-    position: fixed;
-    inset: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
 }
 
 .mask {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
 }
 
 .drawer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 85%;
-    background: #fff;
-    border-radius: 30rpx 30rpx 0 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 88%;
+  background: var(--white);
+  border-radius: 40rpx 40rpx 0 0;
+  overflow: hidden;
 }
 
-/* 表单滚动 */
+.drawer-handle {
+  width: 64rpx;
+  height: 8rpx;
+  background: #DDD;
+  border-radius: 100rpx;
+  margin: 18rpx auto 0;
+}
+
+/* ===== 表单滚动 ===== */
 .drawer-body {
-    height: calc(100% - 120rpx);
-    padding: 30rpx;
-    box-sizing: border-box;
+  height: calc(100% - 160rpx);
+  padding: 20rpx 36rpx 0;
+  box-sizing: border-box;
+}
+
+.popup-header {
+  padding: 16rpx 0 30rpx;
+  border-bottom: 1.5rpx solid var(--border);
+  margin-bottom: 30rpx;
 }
 
 .popup-title {
-    font-size: 36rpx;
-    font-weight: bold;
-    margin-bottom: 20rpx;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.5rpx;
 }
 
-/* 表单 */
-.form-item {
-    margin-bottom: 25rpx;
+.popup-subtitle {
+  font-size: 22rpx;
+  color: var(--text-hint);
+  margin-top: 8rpx;
+  line-height: 1.5;
 }
 
-/* 固定城市 */
-.city-fixed {
-    display: inline-block;
-    padding: 16rpx 30rpx;
-    /* 比第二层稍微大一点 */
-    border-radius: 30rpx;
-    background: #f1f3f2;
-    font-size: 26rpx;
-    margin-bottom: 15rpx;
+/* ===== 表单分区 ===== */
+.form-section {
+  margin-bottom: 36rpx;
 }
 
-.city-fixed.active {
-    background: #6ec1a5;
-    color: #fff;
+.form-section-label {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 16rpx;
+}
+
+.section-dot {
+  width: 8rpx;
+  height: 8rpx;
+  background: var(--primary-deep);
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .label {
-    font-size: 26rpx;
-    color: #666;
-    margin-bottom: 10rpx;
-    display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
-/* 输入 */
-input,
-textarea {
-    width: 100%;
-    background: #f5f7f6;
-    padding: 20rpx;
-    border-radius: 15rpx;
+.required-badge {
+  font-size: 20rpx;
+  color: #E07B3A;
+  background: #FFF2E8;
+  padding: 4rpx 12rpx;
+  border-radius: 100rpx;
+  font-weight: 500;
 }
 
-/* 选项 */
+.optional-badge {
+  font-size: 20rpx;
+  color: var(--text-hint);
+  background: #F5F5F5;
+  padding: 4rpx 12rpx;
+  border-radius: 100rpx;
+}
+
+/* ===== 固定城市 ===== */
+.city-fixed-wrap {
+  margin-bottom: 14rpx;
+}
+
+.city-fixed {
+  display: inline-block;
+  padding: 12rpx 24rpx;
+  border-radius: 100rpx;
+  background: var(--primary-light);
+  color: #7A6010;
+  font-size: 24rpx;
+  font-weight: 600;
+  border: 1.5rpx solid var(--primary);
+}
+
+/* ===== 输入框 ===== */
+.form-input {
+  width: 100%;
+  background: var(--primary-ultra-light);
+  padding: 0 28rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+  color: var(--text-main);
+  border: 1.5rpx solid var(--border);
+}
+
+.form-textarea {
+  width: 100%;
+  background: var(--primary-ultra-light);
+  padding: 24rpx 28rpx;
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+  color: var(--text-main);
+  border: 1.5rpx solid var(--border);
+  box-sizing: border-box;
+  min-height: 160rpx;
+  line-height: 1.7;
+}
+
+/* ===== 选项组 ===== */
 .options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+  margin-bottom: 14rpx;
 }
 
-/* 两排固定 */
-.two-row .option {
-    width: 30%;
-}
-
-/* 关键：防止文字溢出 */
 .option {
-    padding: 12rpx 0;
-    text-align: center;
-    background: #f1f3f2;
-    border-radius: 30rpx;
-    font-size: 24rpx;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  padding: 16rpx 28rpx;
+  text-align: center;
+  background: #F4F4F4;
+  border-radius: 100rpx;
+  font-size: 24rpx;
+  color: var(--text-sub);
+  border: 1.5rpx solid transparent;
+  white-space: nowrap;
+  transition: all 0.15s;
 }
 
-/* 选中 */
+.time-option {
+  padding: 16rpx 22rpx;
+  font-size: 23rpx;
+}
+
 .option.active {
-    background: #6ec1a5;
-    color: #fff;
+  background: var(--primary-light);
+  color: #7A6010;
+  border-color: var(--primary);
+  font-weight: 600;
 }
 
-/* 固定按钮 */
+/* ===== 底部固定按钮 ===== */
 .fixed-btn {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    gap: 20rpx;
-    padding: 20rpx;
-    background: #fff;
-    border-top: 1rpx solid #eee;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  gap: 20rpx;
+  padding: 20rpx 36rpx 40rpx;
+  background: var(--white);
+  border-top: 1.5rpx solid var(--border);
+  box-sizing: border-box;
 }
 
-.cancel {
-    flex: 1;
-    background: #eee;
+.btn-cancel {
+  flex: 1;
+  background: #F0EDE4;
+  color: var(--text-sub);
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-align: center;
+  padding: 28rpx 0;
 }
 
-.submit {
-    flex: 1;
-    background: #6ec1a5;
-    color: #fff;
+.btn-submit {
+  flex: 2;
+  background: var(--primary);
+  color: #1A1200;
+  font-size: 30rpx;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  text-align: center;
+  padding: 28rpx 0;
+  box-shadow: 0 8rpx 24rpx var(--shadow-color);
 }
 
+/* ===== Tabbar ===== */
 .tabbar-hide {
-    display: none;
+  display: none;
 }

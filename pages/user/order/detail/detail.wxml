@@ -83,7 +83,7 @@
 <view class="footer">
     <button class="home" bindtap="goHome">首页</button>
     <button class="cancel" wx:if="{{order.order_status < 30}}" bindtap="cancelOrder">
-        取消
+        取消订单
     </button>
 </view>
 
