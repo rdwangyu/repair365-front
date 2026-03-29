@@ -52,7 +52,6 @@ Page({
       success: (res) => {
         if (res.data.errcode === 0) {
           const arr = res.data.result.orders || []
-
           const list = arr.map(item => ({
             ...item,
             create_time: formatDateTime(new Date(item.create_time)),

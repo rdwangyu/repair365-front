@@ -231,6 +231,7 @@ Page({
                         identity_card_0: form.identity_card_0,
                         identity_card_1: form.identity_card_1,
                         business_license: form.business_license,
+                        auto_reg: true
                     },
                     header: {
                         'Content-Type': 'application/json'
