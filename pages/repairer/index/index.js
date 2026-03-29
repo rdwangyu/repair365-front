@@ -10,6 +10,7 @@ Page({
   },
 
   onLoad() {
+    wx.setStorageSync('lastRole', 'repairer');
     this.getLocation()
     this.loadList()
 

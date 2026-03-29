@@ -44,23 +44,6 @@ page {
   letter-spacing: -1rpx;
 }
 
-.header-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-  background: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6rpx 20rpx var(--shadow-color);
-}
-
-.avatar-text {
-  font-size: 30rpx;
-  font-weight: 700;
-  color: var(--white);
-}
-
 /* ===== 地图卡片 ===== */
 .map-card {
   margin: 10rpx 32rpx 32rpx;

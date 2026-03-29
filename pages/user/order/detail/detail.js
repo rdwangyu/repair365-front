@@ -38,7 +38,6 @@ Page({
             success: (res) => {
                 if (res.data.errcode === 0) {
                     const r = res.data.result
-
                     const order = {
                         id: r.id,
                         order_number: r.order_number,
@@ -50,8 +49,8 @@ Page({
                         order_status: r.order_status,
                         create_time: formatDateTime(new Date(r.create_time)),
 
-                        assignee_name: '王师傅（测试数据）',
-                        assignee_phone: '1851506024'
+                        assignee_name: r.assignee.fullname,
+                        assignee_phone: r.assignee.phone
                     }
 
                     this.setData({

@@ -8,14 +8,21 @@ Page({
   },
 
   onLoad() {
-    // 页面加载时可以检查 token，但不需要自动跳转
-    // 保留用户选择的权利
+    const lastRole = wx.getStorageSync('lastRole');
+    if (lastRole === 'user')
+    {
+      this.selectUser();
+    } else if (lastRole === 'repairer')
+    {
+      this.selectRepairer();
+    } else {
+      return;
+    }
   },
 
   selectUser() {
     // 检查是否已有用户 token
     const userToken = wx.getStorageSync('userToken');
-    console.log(1111111111, userToken)
     if (userToken) {
       // 已有 token，直接跳转到用户首页
       wx.reLaunch({

@@ -6,9 +6,6 @@
         <view class="header-greeting">您好 👋</view>
         <view class="header-title">维修服务</view>
     </view>
-    <view class="header-avatar">
-        <text class="avatar-text">张</text>
-    </view>
 </view>
 
 <!-- 地图区域 -->

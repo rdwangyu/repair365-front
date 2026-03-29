@@ -54,6 +54,9 @@ Page({
     mapLatitude: 37.5328,
   },
 
+  onLoad(e) {
+    wx.setStorageSync('lastRole', 'user');
+  },
 
   selectDistrict(e) {
     this.setData({
@@ -233,7 +236,7 @@ Page({
           if (arr.length != 0) {
             wx.navigateTo({
               url: `/pages/user/order/detail/detail?id=${arr[0].id}`
-          })
+            })
           } else {
             wx.showToast({
               title: '无记录',
