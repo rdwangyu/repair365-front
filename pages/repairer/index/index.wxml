@@ -1,8 +1,45 @@
-<!-- 页面内容 -->
-<view class="page-content">
-  <!-- 维修人员首页特有的内容 -->
-  <text>维修人员首页</text>
+<view class="page">
+
+<!-- 🔵 地图 -->
+<map 
+  class="map"
+  longitude="{{longitude}}"
+  latitude="{{latitude}}"
+  markers="{{markers}}"
+  show-location
+></map>
+
+<!-- 📦 卡片区 -->
+<view class="panel">
+
+  <view class="panel-title">最新订单（发布中）</view>
+
+  <block wx:for="{{list}}" wx:key="id">
+    <view class="card" bindtap="goDetail" data-id="{{item.id}}">
+
+      <view class="card-top">
+        <text class="order-no">#{{item.order_number}}</text>
+        <text class="status">发布中</text>
+      </view>
+
+      <view class="desc">{{item.shortDesc}}</view>
+
+      <view class="address">{{item.location}}</view>
+
+      <view class="bottom">
+        <text>{{item.create_time}}</text>
+        <text class="arrow">›</text>
+      </view>
+
+    </view>
+  </block>
+
+  <view wx:if="{{!list.length}}" class="empty">
+    暂无订单
+  </view>
+
 </view>
 
+</view>
 <!-- 自定义 TabBar -->
 <custom-tabbar role="repairer" current="index" />

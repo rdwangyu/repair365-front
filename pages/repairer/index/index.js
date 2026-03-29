@@ -1,66 +1,84 @@
-// pages/repairer/index/index.js
+import { BASE_URL, formatDateTime } from '../../../utils/api'
+
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    list: [],
+    latitude: 39.9042,   // 默认北京，可改
+    longitude: 116.4074,
+    markers: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
+  onLoad() {
+    this.getLocation()
+    this.loadList()
 
+    // 🔥 每分钟刷新
+    this.timer = setInterval(() => {
+      this.loadList()
+    }, 60000)
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload() {
-
+    clearInterval(this.timer)
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
+  /* 获取当前位置 */
+  getLocation() {
+    wx.getLocation({
+      type: 'gcj02',
+      success: (res) => {
+        this.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+      }
+    })
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
+  /* 加载最新3条发布中订单 */
+  loadList() {
+    wx.request({
+      url: BASE_URL + 'master/order/',
+      method: 'GET',
+      header: {
+        Authorization: `Bearer ${wx.getStorageSync('userToken')}`
+      },
+      data: {
+        status: 20,
+        page: 1,
+        page_size: 3
+      },
+      success: (res) => {
+        if (res.data.errcode === 0) {
+          const arr = res.data.result.orders || []
 
+          const list = arr.map(item => ({
+            ...item,
+            create_time: formatDateTime(new Date(item.create_time)),
+            shortDesc: (item.issue_description || '').slice(0, 20)
+          }))
+
+          // 🔥 地图点
+          const markers = list.map((item, index) => ({
+            id: item.id,
+            latitude: item.latitude || this.data.latitude,
+            longitude: item.longitude || this.data.longitude,
+            width: 30,
+            height: 30
+          }))
+
+          this.setData({ list, markers })
+        }
+      }
+    })
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  goDetail(e) {
+    const id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `/pages/repairer/order/detail/detail?id=${id}`
+    })
   }
+
 })
