@@ -60,7 +60,7 @@ Page({
   loadData() {
     this.setData({ loading: true, error: false })
     const userToken = wx.getStorageSync('userToken') || ''
-
+    console.log(1111, userToken)
     wx.request({
       url: BASE_URL + 'master/',
       method: 'GET',

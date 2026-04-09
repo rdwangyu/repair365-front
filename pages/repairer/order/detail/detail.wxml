@@ -11,7 +11,7 @@
 
   <view class="row">
     <text class="label">客户</text>
-    <text class="value">{{order.sponsor.nickname}}</text>
+    <text class="value">{{order.sponsor_detail.nickname}}</text>
   </view>
 
   <view class="row">

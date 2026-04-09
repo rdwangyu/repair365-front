@@ -239,6 +239,7 @@ Page({
                     success: (res) => {
                         const data = res.data
                         if (data.errcode === 0) {
+                            wx.setStorageSync('userToken', data.result.access_token)
                             wx.showToast({
                                 title: '提交成功！',
                                 icon: 'success'
