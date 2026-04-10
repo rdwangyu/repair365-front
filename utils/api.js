@@ -1,6 +1,6 @@
-// const BASE_URL = 'http://8.141.106.120:8000/'
-const BASE_URL = 'http://192.168.10.118:8000/'
-// const BASE_URL = 'http://192.168.0.109:8000/'
+const BASE_URL = 'https://byqg.top/api/'
+// const BASE_URL = 'http://192.168.10.118:8000/'
+
 
 // 日期格式：YYYY-MM-DD
 function formatDate(date) {
